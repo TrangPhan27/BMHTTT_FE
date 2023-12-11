@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+# Luu y khi run
+Vì đã thiết lập bảo vệ đường dẫn nên nếu chưa login sẽ không vô được, để thiết kế các page còn lại mà không bị cản trở thì comment dòng ProtectedRoute trong file App.js lại
