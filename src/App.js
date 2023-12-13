@@ -7,6 +7,9 @@ import Nav from "./@core/components/nav";
 import RequireAuth from "./@core/components/requireAuth";
 import { AuthProvider } from "./@core/hooks/useAuth";
 import AddApplication from "./pages/addApplication";
+import File from './pages/File'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function App() {
   return (
@@ -36,8 +39,19 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="listApplication"
+            element={
+              <RequireAuth>
+              <header>
+              <Nav/>
+              </header>
+                <File />
+              </RequireAuth>
+            }
+          />
           <Route path="login" element={<Login />} />
-        </Routes>
+      </Routes>
     </AuthProvider>
     </BrowserRouter>
         

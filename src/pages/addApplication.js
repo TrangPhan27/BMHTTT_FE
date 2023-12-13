@@ -2,18 +2,30 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Paper, Typography } from '@mui/material';
-import client from "./useApi";
+import client from "../@core/hooks/useApi";
 import { useNavigate } from 'react-router';
 
 export default function AddApplication() {
   const navigate = useNavigate()
-  const [dataForm, setDataForm] = React.useState()
+  const [dataForm, setDataForm] = React.useState({
+    c_name: '',
+    acc_type: '',
+    climit: '',
+    c_cccd: '',
+    c_addr: '',
+    c_email: '',
+    c_phone_num: '',
+    c_income: ''
+  })
   const handleChange = (field, value) => {
     setDataForm({...dataForm, [field]: value})
   }
   const onSubmit = ()=>{
-    const data = FormData(dataForm)
-    const res = client.post('', data)
+    const data = new FormData()
+    Object.entries(dataForm).forEach(field => {
+      data.append(field[0], field[1])
+    })
+    const res = client.post('/api/application', data)
     if(res && res.status === 200){
       alert('Successfully')
       navigate("/")
@@ -34,6 +46,7 @@ export default function AddApplication() {
         width:"800px"
       }}
       noValidate
+      onSubmit={onSubmit}
     >
 
       <Box sx={{
