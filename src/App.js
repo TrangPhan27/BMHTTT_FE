@@ -6,6 +6,9 @@ import ProtectedRoute from './@core/components/protectedRoute';
 import Home from './pages/home'
 import Login from './pages/login'
 import Customer from './pages/customer';
+import File from './pages/File'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function App() {
   return (
@@ -19,6 +22,7 @@ function App() {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/customer" element={<Customer />} />
+        <Route path="/File" element={<File />} />
       </Routes>
     </AuthProvider>
     </BrowserRouter>

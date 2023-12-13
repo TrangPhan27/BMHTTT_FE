@@ -1,0 +1,60 @@
+.Customer-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding-right: 10px;
+  .totalbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+   
+  }
+  .totaltable {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+    background-color: white;
+    
+  }
+  .labelbox{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+  }
+  .allbox {
+    display: grid;
+    background-color: white;
+    border-radius: 10px;
+
+    grid-column: 1;
+  }
+  .textlable{
+    margin-left: 25px;
+    font-weight: 700;
+    margin-top: 5px;
+    font-size: 18px;
+   
+  }
+  .searchbox {
+    margin-top: 10px;
+    grid-column: 7;
+  }
+  .sortbox {
+    margin-top: 10px;
+   grid-column: 8;
+  }
+  .table {
+  }
+  .searchinput{
+   margin-right: 5px;
+   border-radius: 10px;
+  }
+  .sortinput
+  {
+   
+    border-radius: 10px;
+  }
+  
+}
