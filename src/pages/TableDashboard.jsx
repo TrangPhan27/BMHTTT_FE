@@ -16,23 +16,23 @@ import { Button, IconButton } from "@mui/material";
 
 
 const columns = [
-  { id: "name", label: "Tên", minWidth: 150 },
-  { id: "Uuid", label: "Mã số hồ sơ", minWidth: 100 },
+  { id: "c_name", label: "Tên", minWidth: 150 },
+  { id: "id", label: "Mã số hồ sơ", minWidth: 100 },
   {
-    id: "phone",
+    id: "c_phone_num",
     label: "Số điện thoại",
     minWidth: 150,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "email",
+    id: "c_email",
     label: "Email",
     minWidth: 150,
     align: "center",
   },
   {
-    id: "country",
+    id: "c_addr",
     label: "Thành phố",
     minWidth: 80,
     align: "right",
@@ -46,8 +46,8 @@ const columns = [
   },
 ];
 
-function createData(name, Uuid, phone, email, country, Action) {
-  return { name, Uuid, phone, email, country };
+function createData(c_name, id, c_phone_num, c_email, c_addr, Action) {
+  return { c_name, id, c_phone_num, c_email, c_addr };
 }
 
 const rows = [
@@ -191,8 +191,8 @@ export default function TableDashboard({ list, onAddComment, onReadComment }) {
                       }
                       return (
                         <TableCell key={column.id} align={column.align} style={{ borderBottom: "none" }}>
-                          <Button variant="contained" sx = {{mr:"1%"}} onClick={onAddComment}>Thêm</Button>
-                          <Button variant="outlined" onClick = {onReadComment}>Xem</Button>
+                          <Button variant="contained" sx = {{mr:"1%"}} onClick={onAddComment(row.id)}>Thêm</Button>
+                          <Button variant="outlined" onClick = {onReadComment(row.id)}>Xem</Button>
                         </TableCell>
                       );
                     })}

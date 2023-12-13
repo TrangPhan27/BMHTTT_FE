@@ -1,17 +1,36 @@
 import React, { useEffect, useState } from "react";
 import "./File.scss";
-import { Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
 import TableDashboard from "./TableDashboard";
 import client from '../@core/hooks/useApi'
-import { Button } from "@mui/base";
 import { useNavigate } from "react-router";
 
 function File() {
   const navigate = useNavigate()
   const [listAppli, setListApp] = useState([])
   const [comment, setComment] = useState('')
-  const handleSubmitComment = () => {
-    
+  const [openAddComment, setOpenAddComment] = useState(false)
+  // const [openReadComment, setOpenReadComment] = useState(false)
+  const [idApp, setIdApp] = useState('')
+  const handleSubmitComment = async () => {
+    const data = new FormData()
+    data.append('id', idApp)
+    data.append('comment', comment)
+    const res = await client.post('api/applications', data )
+    if(res && res.status === 200){
+      setOpenAddComment(false)
+    }
+    else {
+      alert(res.message)
+    }
+  }
+  const handleAddComment = (id) => () => {
+    setOpenAddComment(true)
+    setIdApp(id)
+  }
+  const handleReadComment = (id) => () => {
+    // setOpenReadComment(true)
+    setIdApp(id)
   }
   const fetchList = async () => {
     const res = await client.get('/api/applications')
@@ -42,13 +61,13 @@ function File() {
           </div> */}
         </div>
         <div className="table">
-          <TableDashboard list={listAppli}/>
+          <TableDashboard list={listAppli} onAddComment={handleAddComment} onReadComment={handleReadComment}/>
         </div>
         
       </div>
-      <Dialog >
+      <Dialog open={openAddComment} onClose={() => setOpenAddComment(false)}>
           <DialogTitle>
-          Thêm nhận xét vào hồ sơ của 
+          Thêm nhận xét vào hồ sơ của {idApp}
           </DialogTitle>
           <DialogContent>
           <TextField 

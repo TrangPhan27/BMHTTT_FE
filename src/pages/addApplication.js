@@ -20,12 +20,12 @@ export default function AddApplication() {
   const handleChange = (field, value) => {
     setDataForm({...dataForm, [field]: value})
   }
-  const onSubmit = ()=>{
+  const onSubmit = async ()=>{
     const data = new FormData()
     Object.entries(dataForm).forEach(field => {
       data.append(field[0], field[1])
     })
-    const res = client.post('/api/application', data)
+    const res = await client.post('/api/applications', data)
     if(res && res.status === 200){
       alert('Successfully')
       navigate("/")
