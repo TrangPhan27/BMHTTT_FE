@@ -1,13 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 function Nav() {
     const { authed, logout } = useAuth();
-    const navigate = useNavigate();
   
     const handleLogout = () => {
       logout();
-      navigate("/");
     };
   
     return (

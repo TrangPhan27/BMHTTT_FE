@@ -2,9 +2,26 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Paper, Typography } from '@mui/material';
-
+import client from "./useApi";
+import { useNavigate } from 'react-router';
 
 export default function AddApplication() {
+  const navigate = useNavigate()
+  const [dataForm, setDataForm] = React.useState()
+  const handleChange = (field, value) => {
+    setDataForm({...dataForm, [field]: value})
+  }
+  const onSubmit = ()=>{
+    const data = FormData(dataForm)
+    const res = client.post('', data)
+    if(res && res.status === 200){
+      alert('Successfully')
+      navigate("/")
+    }
+    else {
+      alert(res.message)
+    }
+  }
   return (
     <text>
     <Typography sx={{mt:5, mb:2, ml:40}}>THÔNG TIN CÁ NHÂN </Typography>
@@ -27,18 +44,24 @@ export default function AddApplication() {
           id="outlined-required"
           label="Name"
           sx={{width:"40%"}}
+          value={dataForm.c_name}
+          onChange={(e) => handleChange('c_name', e.target.value)}
         />
          <TextField
           required
           id="outlined-required"
-          label="Job"
+          label="Loai tai khoan"
           sx={{width:"20%"}} 
+          value={dataForm.acc_type}
+          onChange={(e) => handleChange('acc_type', e.target.value)}
         />
          <TextField
           required
           id="outlined-required"
-          label="Birth"
+          label="Han muc"
           sx={{width:"30%"}} 
+          value={dataForm.climit}
+          onChange={(e) => handleChange('climit', e.target.value)}
         />
       </Box>
       
@@ -48,6 +71,8 @@ export default function AddApplication() {
           id="outlined-required"
           label="CCCD"
           sx={{width:"50%"}}
+          value={dataForm.c_cccd}
+          onChange={(e) => handleChange('c_cccd', e.target.value)}
         />
           <TextField
           required
@@ -70,6 +95,8 @@ export default function AddApplication() {
           id="outlined-required"
           label="Địa chỉ hiện tại"
           sx={{width:"94%"}}  
+          value={dataForm.c_addr}
+          onChange={(e) => handleChange('c_addr', e.target.value)}
         />
       </div>
 
@@ -99,6 +126,8 @@ export default function AddApplication() {
           id="outlined-required"
           label="Email"
           sx={{width:"94%"}} 
+          value={dataForm.c_email}
+          onChange={(e) => handleChange('c_email', e.target.value)}
         />
       </div>
       <div>
@@ -107,19 +136,22 @@ export default function AddApplication() {
           id="outlined-required"
           label="Số điện thoại"
           sx={{width:"30%"}}
-         
+          value={dataForm.c_phone_num}
+          onChange={(e) => handleChange('c_phone_num', e.target.value)}
         />
          <TextField
           required
           id="outlined-required"
           label="Thu nhập"
           sx={{width:"30%"}}
+          value={dataForm.c_income}
+          onChange={(e) => handleChange('c_income', e.target.value)}
         />
       </div>
 
     <stack spacing={2} direction="row">
-      <Button variant="contained" sx={{width:"20%", ml:"30%", mr:"2%", mt:"5%", mb:"5%"}}>hủy bỏ</Button>
-      <Button variant="outlined" sx={{width:"20%", mt:"5%", mb:"5%"}}>Nộp hồ sơ</Button>
+      <Button variant="contained" sx={{width:"20%", ml:"30%", mr:"2%", mt:"5%", mb:"5%"}} onClick = {() => navigate("/")}>hủy bỏ</Button>
+      <Button variant="outlined" sx={{width:"20%", mt:"5%", mb:"5%"}} onClick = {onSubmit}>Nộp hồ sơ</Button>
     </stack>
     </Paper>
     </text>

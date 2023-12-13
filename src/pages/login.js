@@ -45,7 +45,6 @@ const Login = () => {
     auth.login(data, (e)=> {
       alert(e)
     })
-    
   };
   return (
     <>
