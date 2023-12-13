@@ -4,8 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Button, Paper, Typography } from '@mui/material';
 
 
-
-export default function Customer() {
+export default function AddApplication() {
   return (
     <text>
     <Typography sx={{mt:5, mb:2, ml:40}}>THÔNG TIN CÁ NHÂN </Typography>
@@ -122,22 +121,7 @@ export default function Customer() {
       <Button variant="contained" sx={{width:"20%", ml:"30%", mr:"2%", mt:"5%", mb:"5%"}}>hủy bỏ</Button>
       <Button variant="outlined" sx={{width:"20%", mt:"5%", mb:"5%"}}>Nộp hồ sơ</Button>
     </stack>
-
-
-    
     </Paper>
-
     </text>
-
-
-
-
-
-
-
-
-
-
-
   );
 }

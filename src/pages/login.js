@@ -8,6 +8,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { FormHelperText } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../@core/hooks/useAuth'
 import axios from 'axios';
 
 function Copyright(props) {
@@ -27,10 +28,8 @@ function Copyright(props) {
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const [helperText, setHelperText] = useState("");
-  const [openReset, setOpenRequest] = useState(false);
 
+  const auth = useAuth();
   const handleChange = (event) => {
     event.preventDefault();
     if (event.target.id === 'username') {
@@ -43,41 +42,10 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    navigate('/');
-    // try {
-    //   axios({
-    //     method: 'post',
-    //     url: 'http://localhost:5000/users/login',
-    //     data: data
-    //   })
-    //     .then((res) => {
-    //       const dataResponse = {
-    //         username: res.data.username,
-    //         email: res.data.email,
-    //         is_admin: res.data.is_admin,
-    //         is_active: res.data.is_active,
-    //         token: res.data.token,
-    //         uid: res.data.uid
-    //       };
-    //       return dataResponse;
-    //     })
-    //     .then((dataRes) => {
-    //       if (dataRes.is_active) {
-    //         navigate('/');
-    //       }
-    //       else {
-    //         setHelperText("Your account is not activated. Please contact your moderator.")
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       const mute = err;
-    //       if (err.response.status === 403 || err.response.status === 401) {
-    //         setHelperText("Email or Password is incorrect!");
-    //       }
-    //     });
-    // } catch (error) {
-
-    // };
+    auth.login(data, (e)=> {
+      alert(e)
+    })
+    
   };
   return (
     <>
@@ -154,18 +122,13 @@ const Login = () => {
                 autoComplete="current-password"
                 onChange={handleChange}
               />
-              <FormHelperText error>{helperText}</FormHelperText>
+              
               <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box>
                   <FormControlLabel
                     control={<Checkbox value="remember" />}
                     label="Remember me"
                   />
-                </Box>
-                <Box>
-                  <Link onClick={(e) => { setOpenRequest(true); }} underline='none'>
-                    Forgot?
-                  </Link>
                 </Box>
               </Box>
               <Button

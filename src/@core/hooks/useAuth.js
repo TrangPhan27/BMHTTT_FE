@@ -1,63 +1,38 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "./useApi";
 const authContext = createContext();
 
 export function useAuth() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [authed, setAuthed] = useState(false)
   const navigate = useNavigate();
-  useEffect(() => {
-    const initAuth = async () => {
-        const role = window.localStorage.getItem('role');
-        if(role){
-            setLoading(true)
-            await client.get('me')
-            .then(async res => {
-                setLoading(false)
-                setUser({...res.data.user})
-            })
-            .catch(err => {
-                console.log(err)
-                console.log("Couldn't get role")
-                localStorage.removeItem('role')
-                localStorage.removeItem('userData')
-                setUser(null)
-                setLoading(false)
-            })
-        }
-        else {
-            setLoading(false)
-        }
-    }
-    initAuth()
-  }, [])
-  const login = (params, errorCallback) => {
-    client.post('/login', {...params})
+  
+  const login = (form, errorCallback) => {
+    client.post('/login', form)
     .then(async res => {
-        window.localStorage.setItem('role', res.data.role)
+        if(res && res.status === 200){
+          window.localStorage.setItem('token', 'true')
+          setAuthed(true)
+        }
     })
     .then(() => {
-        client.get('/me').then(async res => {
-            setUser({...res.data.user, role: res.data.user.role})
-            window.localStorage.setItem('userData', JSON.stringify(res.data.user))
-            navigate("/")
-        });
+        navigate("/")
     })
     .catch(err => {
         if(errorCallback) errorCallback(err)
     })
+    // window.localStorage.setItem('token', 'true')
+    //       setAuthed(true)
+    //       navigate("/")
   }
 
   const logout = () => {
-    setUser(null)
-    window.localStorage.removeItem('userData')
-    window.localStorage.removeItem('role')
+    setAuthed(false)
+    window.localStorage.removeItem('token')
     navigate("/login")
   }
   return {
-    user,
-    loading,
+    authed,
     login,
     logout,
   };
@@ -66,7 +41,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const auth = useAuth();
 
-  return <authContext.Provider value={auth}>{!auth.loading && children}</authContext.Provider>;
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
 export default function AuthConsumer() {
