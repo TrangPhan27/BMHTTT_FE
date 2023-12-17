@@ -174,7 +174,7 @@ export default function TableDashboard({ list, onAddComment, onReadComment }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {list
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
@@ -205,7 +205,7 @@ export default function TableDashboard({ list, onAddComment, onReadComment }) {
       <TablePagination
         rowsPerPageOptions={5}
         component="div"
-        count={rows.length}
+        count={list.length}
       />
     </Paper>
   );

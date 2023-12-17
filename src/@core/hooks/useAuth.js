@@ -26,10 +26,15 @@ export function useAuth() {
     //       navigate("/")
   }
 
-  const logout = () => {
-    setAuthed(false)
-    window.localStorage.removeItem('token')
-    navigate("/login")
+  const logout = async () => {
+    const res = await client.get('/logout')
+    if(res.status === 200){
+      setAuthed(false)
+      window.localStorage.removeItem('token')
+      navigate("/login")
+    }else {
+      alert("Couldn't log out")
+    }
   }
   return {
     authed,

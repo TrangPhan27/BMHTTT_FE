@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./File.scss";
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Typography, Grid } from "@mui/material";
 import TableDashboard from "./TableDashboard";
 import client from '../@core/hooks/useApi'
 import { useNavigate } from "react-router";
@@ -10,7 +10,7 @@ function File() {
   const [listAppli, setListApp] = useState([])
   const [comment, setComment] = useState('')
   const [openAddComment, setOpenAddComment] = useState(false)
-  // const [openReadComment, setOpenReadComment] = useState(false)
+  const [listComment, setListComment] = useState([])
   const [idApp, setIdApp] = useState('')
   const handleSubmitComment = async () => {
     const data = new FormData()
@@ -40,6 +40,19 @@ function File() {
       alert(res.message)
     }
   }
+  useEffect(()=>{
+    const fetchListComment = async () => {
+      const res = await client.get(`/api/applications/${idApp}`)
+      if(res && res.status === 200){
+        setListComment(res.data)
+      } else {
+        alert(res.message)
+      }
+    }
+    if(openAddComment){
+      fetchListComment()
+    }
+  }, [openAddComment])
   useEffect(() => {
     fetchList()
   }, [])
@@ -51,14 +64,6 @@ function File() {
           <div className="searchbox">
             <input type="text" className="searchinput" />
           </div>
-          {/* <div className="sortbox">
-            <select name="cars" id="cars" className="sortinput">
-              <option value="volvo">1</option>
-              <option value="saab">2</option>
-              <option value="mercedes">3</option>
-              <option value="audi">4</option>
-            </select>
-          </div> */}
         </div>
         <div className="table">
           <TableDashboard list={listAppli} onAddComment={handleAddComment} onReadComment={handleReadComment}/>
@@ -70,6 +75,9 @@ function File() {
           Thêm nhận xét vào hồ sơ của {idApp}
           </DialogTitle>
           <DialogContent>
+          <Grid container flexDirection="column" spacing={6}>
+          {listComment.map(comment => <Typography variant="body1">{comment}</Typography>)}
+          </Grid>
           <TextField 
           multiline
           value={comment}

@@ -1,24 +1,10 @@
-import { Grid, Button } from "@mui/material"
-import { useNavigate } from "react-router"
-
-
 const Home = () => {
-    const navigate = useNavigate()
-    const handleAddApplication = () => {
-        navigate('/addApplication')
-    }
-    const handleListApplication = () => {
-        navigate('/listApplication')
-    }
+    
     return (
-        <Grid container>
-        <Button onClick={handleAddApplication}>
-        Add Application
-        </Button>
-        <Button onClick={handleListApplication}>
-        List Applications
-        </Button>
-        </Grid>
+        <div>
+            <p>Choose "Add application" to add application</p>
+            <p>Choose "List application" to read applications</p>
+        </div>
     )
 }
 export default Home
