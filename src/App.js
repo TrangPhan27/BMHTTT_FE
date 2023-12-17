@@ -9,6 +9,7 @@ import { AuthProvider } from "./@core/hooks/useAuth";
 import AddApplication from "./pages/addApplication";
 import File from './pages/File'
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import ListUsers from "./pages/listUsers";
 
 
 function App() {
@@ -47,6 +48,17 @@ function App() {
               <Nav/>
               </header>
                 <File />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="listUsers"
+            element={
+              <RequireAuth>
+              <header>
+              <Nav/>
+              </header>
+                <ListUsers />
               </RequireAuth>
             }
           />

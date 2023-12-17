@@ -15,6 +15,7 @@ function Nav() {
         <Link to="/"><Button sx={{fontWeight: 600}}>Home</Button></Link>
         <Link to="/addApplication"><Button sx={{fontWeight: 600}}>Add Application</Button></Link>
         <Link to="/listApplication"><Button sx={{fontWeight: 600}}>List Application</Button></Link>
+        <Link to="/listUsers"><Button sx={{fontWeight: 600}}>List Users</Button></Link>
       </Grid>
       {authed && (
         <Grid item>
