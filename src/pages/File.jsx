@@ -28,9 +28,14 @@ function File() {
     setOpenAddComment(true)
     setIdApp(id)
   }
-  const handleReadComment = (id) => () => {
-    // setOpenReadComment(true)
-    setIdApp(id)
+  const handleDeleteAppli = (id) => async() => {
+    const res = await client.delete('api/applications', {id})
+    if(res && res.status === 200){
+      alert('Delete successfully')
+      fetchList()
+    } else {
+      alert(res.message)
+    }
   }
   const fetchList = async () => {
     const res = await client.get('/api/applications')
@@ -52,7 +57,7 @@ function File() {
     if(openAddComment){
       fetchListComment()
     }
-  }, [openAddComment])
+  }, [openAddComment, idApp])
   useEffect(() => {
     fetchList()
   }, [])
@@ -66,7 +71,7 @@ function File() {
           </div>
         </div>
         <div className="table">
-          <TableDashboard list={listAppli} onAddComment={handleAddComment} onReadComment={handleReadComment}/>
+          <TableDashboard list={listAppli} onAddComment={handleAddComment} onDeleteAppli={handleDeleteAppli}/>
         </div>
         
       </div>

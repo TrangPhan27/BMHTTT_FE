@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
 // import IconButton from '@mui/material/IconButton';
@@ -154,7 +154,7 @@ const rows = [
 
 
 
-export default function TableDashboard({ list, onAddComment, onReadComment }) {
+export default function TableDashboard({ list, onAddComment, onDeleteAppli }) {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -191,8 +191,8 @@ export default function TableDashboard({ list, onAddComment, onReadComment }) {
                       }
                       return (
                         <TableCell key={column.id} align={column.align} style={{ borderBottom: "none" }}>
-                          <Button variant="contained" sx = {{mr:"1%"}} onClick={onAddComment(row.id)}>Thêm</Button>
-                          <Button variant="outlined" onClick = {onReadComment(row.id)}>Xem</Button>
+                          <Button variant="contained" sx = {{mr:"1%"}} onClick={onAddComment(row.id)}>{'Comment'}</Button>
+                          <Button variant="contained" sx = {{mr:"1%"}} onClick={onDeleteAppli(row.id)}>Delete</Button>
                         </TableCell>
                       );
                     })}
