@@ -1,27 +1,23 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "./useApi";
-import { useEffect } from "react";
 const authContext = createContext();
 
 export function useAuth() {
   const [authed, setAuthed] = useState(false)
   const navigate = useNavigate();
-  
-  const login = (form, errorCallback) => {
-    client.post('/login', form)
-    .then(async res => {
-        if(res && res.status === 200){
-          window.localStorage.setItem('token', 'true')
-          setAuthed(true)
-        }
-    })
-    .then(() => {
-        navigate("/")
-    })
-    .catch(err => {
-        if(errorCallback) errorCallback(err)
-    })
+
+  const login = async (form) => {
+    const res = await client.post('/login', form)
+    console.log(res)
+    if(res && res.data.status === 200){
+      window.localStorage.setItem('token', 'true')
+      setAuthed(true)
+      navigate("/")
+    } else {
+      alert(res.message)
+    }
+    
     // window.localStorage.setItem('token', 'true')
     //       setAuthed(true)
     //       navigate("/")
@@ -29,7 +25,7 @@ export function useAuth() {
 
   const logout = async () => {
     const res = await client.get('/logout')
-    if(res.status === 200){
+    if(res && res.data.status === 200){
       setAuthed(false)
       window.localStorage.removeItem('token')
       navigate("/login")

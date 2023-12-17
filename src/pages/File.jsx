@@ -1,10 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./File.scss";
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Typography, Grid } from "@mui/material";
-import TableDashboard from "./TableDashboard";
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Typography, Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TablePagination } from "@mui/material";
 import client from '../@core/hooks/useApi'
 import { useNavigate } from "react-router";
+const columns = [
+  { id: "c_name", label: "Tên", minWidth: 150 },
+  { id: "id", label: "Mã số hồ sơ", minWidth: 100 },
+  {
+    id: "c_phone_num",
+    label: "Số điện thoại",
+    minWidth: 150,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "c_email",
+    label: "Email",
+    minWidth: 150,
+    align: "center",
+  },
+  {
+    id: "c_addr",
+    label: "Thành phố",
+    minWidth: 80,
+    align: "right",
+  },
+  {
+    id: "Action",
+    label: "Action",
+    minWidth: 150,
+    align: "center",
 
+  },
+];
 function File() {
   const navigate = useNavigate()
   const [listAppli, setListApp] = useState([])
@@ -71,7 +99,56 @@ function File() {
           </div>
         </div>
         <div className="table">
-          <TableDashboard list={listAppli} onAddComment={handleAddComment} onDeleteAppli={handleDeleteAppli}/>
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth, fontWeight: 600, color: "gray" }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {listAppli.length && listAppli.map((row) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        if (column.label !== "Action") {
+                          return (
+                              <TableCell key={column.id} align={column.align} style={{ borderBottom: "none" }}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                          );
+                        }
+                        return (
+                          <TableCell key={column.id} align={column.align} style={{ borderBottom: "none" }}>
+                            <Button variant="contained" sx = {{mr:"1%"}} onClick={handleAddComment(row.id)}>{'Comment'}</Button>
+                            <Button variant="contained" sx = {{mr:"1%"}} onClick={handleDeleteAppli(row.id)}>Delete</Button>
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={5}
+          component="div"
+          count={listAppli.length}
+        />
+      </Paper>
         </div>
         
       </div>

@@ -8,12 +8,6 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
-// import IconButton from '@mui/material/IconButton';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
 
 const columns = [
   { id: "c_name", label: "Tên", minWidth: 150 },

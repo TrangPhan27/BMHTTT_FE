@@ -1,8 +1,7 @@
 import "./App.css";
-import { Routes, Route, Router, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
-import Customer from "./pages/addApplication";
 import Nav from "./@core/components/nav";
 import RequireAuth from "./@core/components/requireAuth";
 import { AuthProvider } from "./@core/hooks/useAuth";

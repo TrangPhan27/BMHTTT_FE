@@ -8,7 +8,7 @@ function Nav() {
   const handleLogout = () => {
     logout();
   };
-
+  const login = window.localStorage.getItem('token');
   return (
     <Grid container justifyContent={"space-between"} flexWrap={'nowrap'} borderBottom={'solid 2px'} p={'2px 8px 2px 8px'}>
       <Grid item container gap={'10px'}>
@@ -17,7 +17,7 @@ function Nav() {
         <Link to="/listApplication"><Button sx={{fontWeight: 600}}>List Application</Button></Link>
         <Link to="/listUsers"><Button sx={{fontWeight: 600}}>List Users</Button></Link>
       </Grid>
-      {authed && (
+      {(authed || login) && (
         <Grid item>
           <Button onClick={handleLogout} variant="contained">Logout</Button>
         </Grid>

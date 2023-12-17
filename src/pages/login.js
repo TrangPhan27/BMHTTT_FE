@@ -6,10 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { FormHelperText } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../@core/hooks/useAuth'
-import axios from 'axios';
 
 function Copyright(props) {
   
@@ -42,9 +39,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    auth.login(data, (e)=> {
-      alert(e)
-    })
+    auth.login(data);
   };
   return (
     <>

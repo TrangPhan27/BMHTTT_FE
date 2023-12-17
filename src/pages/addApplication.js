@@ -69,6 +69,7 @@ export default function AddApplication() {
           onChange={(e) => handleChange('acc_type', e.target.value)}
         />
          <TextField
+         type = {'number'}
           required
           id="outlined-required"
           label="Han muc"
@@ -146,6 +147,7 @@ export default function AddApplication() {
       <div>
         <TextField
           required
+          type={'number'}
           id="outlined-required"
           label="Số điện thoại"
           sx={{width:"30%"}}
@@ -154,6 +156,7 @@ export default function AddApplication() {
         />
          <TextField
           required
+          type={'number'}
           id="outlined-required"
           label="Thu nhập"
           sx={{width:"30%"}}
