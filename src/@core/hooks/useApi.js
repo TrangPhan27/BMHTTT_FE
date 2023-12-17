@@ -1,6 +1,7 @@
 import axios from 'axios'
 const client = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'http://localhost:5000',
+    withCredentials: true
 })
 // client.interceptors.request.use(config => {
 //     const role = window.localStorage.getItem('role')

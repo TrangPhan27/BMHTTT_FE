@@ -50,17 +50,6 @@ function App() {
               </RequireAuth>
             }
           />
-          // <Route
-          //   path="listUsers"
-          //   element={
-          //     <RequireAuth>
-          //     <header>
-          //     <Nav/>
-          //     </header>
-          //       <ListUsers />
-          //     </RequireAuth>
-          //   }
-          // />
           <Route path="login" element={<Login />} />
       </Routes>
     </AuthProvider>
