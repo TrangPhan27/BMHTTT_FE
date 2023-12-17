@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "./useApi";
+import { useEffect } from "react";
 const authContext = createContext();
 
 export function useAuth() {

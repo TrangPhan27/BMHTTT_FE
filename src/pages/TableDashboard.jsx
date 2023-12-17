@@ -155,7 +155,6 @@ const rows = [
 
 
 export default function TableDashboard({ list, onAddComment, onDeleteAppli }) {
-
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -174,8 +173,7 @@ export default function TableDashboard({ list, onAddComment, onDeleteAppli }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {list
-              .map((row) => {
+            {list.map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map((column) => {
